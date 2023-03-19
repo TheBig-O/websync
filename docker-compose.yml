@@ -1,0 +1,13 @@
+version: '3'
+services:
+  websync:
+    image: furier/websync
+    container_name: websync
+    volumes:
+      - /docker_config/websync/wsdata.json:/src/wsdata.json  # This is the JSON file that holds all the hosts and tasks
+      - /:/source
+    working_dir: /src
+    command: node server.js # This is required or the server won't start
+    ports:
+      - 3095:3000 # Had to adjust the port because I had another app running on 3000
+    restart: unless-stopped
